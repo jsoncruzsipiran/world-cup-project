@@ -1,0 +1,1 @@
+SELECT * FROM raw_fifa_world_cup_2026_player_performance lIMIT 5;
