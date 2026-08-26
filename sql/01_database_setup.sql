@@ -1,87 +1,67 @@
-CREATE TABLE raw_fifa_world_cup_2026_player_performance (
-    player_id VARCHAR(6) PRIMARY KEY,
-    player_name TEXT,
-    age INT,
-    nationality TEXT,
-    team TEXT,
-    jersey_number INT,
-    position TEXT,
-    height_cm INT,
-    weight_kg INT,
-    preferred_foot VARCHAR(5),
-    club_name TEXT,
-    market_value_eur INT,
-    match_id VARCHAR(6),
-    match_date DATE,
-    stadium TEXT,
-    city TEXT,
-    opponent_team TEXT,
-    tournament_stage TEXT,
-    match_result VARCHAR(1),
-    goals_team INT,
-    goals_opponent INT,
-    minutes_played INT,
-    goals INT,
-    assists INT,
-    shots INT,
-    shots_on_target INT,
-    expected_goals_xg NUMERIC,
-    expected_assists_xa NUMERIC,
-    key_passes INT,
-    successful_passes INT,
-    total_passes INT,
-    pass_accuracy NUMERIC,
-    dribbles_attempted INT,
-    successful_dribbles INT,
-    crosses INT,
-    successful_crosses INT,
-    tackles INT,
-    interceptions INT,
-    clearances INT,
-    blocks INT,
-    aerial_duels_won INT,
-    aerial_duels_lost INT,
-    recoveries INT,
-    defensive_actions INT,
-    fouls_committed INT,
-    fouls_suffered INT,
-    yellow_cards INT,
-    red_cards INT,
-    offsides INT,
-    saves INT,
-    save_percentage NUMERIC,
-    punches INT,
-    clean_sheet INT,
-    goals_conceded INT,
-    penalty_saves INT,
-    distance_covered_km NUMERIC,
-    sprint_distance_km NUMERIC,
-    top_speed_kmh NUMERIC,
-    accelerations INT,
-    decelerations INT,
-    stamina_score NUMERIC,
-    player_rating NUMERIC,
-    performance_score NUMERIC,
-    offensive_contribution NUMERIC,
-    defensive_contribution NUMERIC,
-    possession_impact NUMERIC,
-    pressure_resistance NUMERIC,
-    creativity_score NUMERIC,
-    consistency_score NUMERIC,
-    clutch_performance_score NUMERIC,
-    total_goals_tournament INT,
-    total_assists_tournament INT,
-    total_minutes_tournament INT,
-    player_of_match_awards INT,
-    tournament_rating NUMERIC
+-- CREATE A TABLE COMPATIBLE WITH THE FIELDS OF THE matches.csv DATA
+CREATE TABLE world_cup_2026_matches (
+    round TEXT,
+    game_week INT,
+    day_of_week VARCHAR(3),
+    date DATE,
+    start_time TIMESTAMP,
+    home_team TEXT,
+    away_team TEXT,
+    score TEXT,
+    home_score INT,
+    away_score INT,
+    attendance TEXT,
+    venue TEXT,
+    referee TEXT,
+    home_formation TEXT,
+    away_formation TEXT,
+    home_manager TEXT,
+    away_manager TEXT,
+    home_captain TEXT,
+    away_captain TEXT,
+    home_possession INT,
+    away_possession INT,
+    home_sot INT,
+    away_sot INT,
+    home_total_shots INT,
+    away_total_shots INT,
+    home_saves INT,
+    away_saves INT,
+    home_cards_yellow INT,
+    away_cards_yellow INT,
+    home_cards_red INT,
+    away_cards_red INT,
+    home_fouls INT,
+    away_fouls INT,
+    home_corners INT,
+    away_corners INT,
+    home_crosses INT,
+    away_crosses INT,
+    home_interceptions INT,
+    away_interceptions INT,
+    home_offsides INT,
+    away_offsides INT,
+    notes TEXT DEFAULT NULL
 );
 
-ALTER TABLE public.raw_fifa_world_cup_2026_player_performance OWNER to postgres;
+-- ALLOW PERMISSIONS TO LOAD DATA FOR USER
+ALTER TABLE
+    world_cup_2026_matches
+OWNER to postgres;
 
-CREATE INDEX idx_player_id ON public.raw_fifa_world_cup_2026_player_performance (player_id);
+-- CHANGE COLUMN TYPE FOR start_time TO TIME
+ALTER TABLE
+    world_cup_2026_matches
+ALTER COLUMN  
+    start_time
+TYPE TIME;
 
--- multiple instances of same player, cannot use player_id as primary key; remove since we don't have any other tables.
-ALTER TABLE 
-    raw_fifa_world_cup_2026_player_performance 
-DROP CONSTRAINT 
-    raw_fifa_world_cup_2026_player_performance_pkey;
+-- CHANGE COLUMN TYPE FOR home_score TO NUMERIC
+ALTER TABLE
+    world_cup_2026_matches
+ALTER COLUMN home_score TYPE NUMERIC;
+
+-- CHANGE COLUMN TYPE FOR away_score TO NUMERIC
+ALTER TABLE
+    world_cup_2026_matches
+ALTER COLUMN away_score TYPE NUMERIC;

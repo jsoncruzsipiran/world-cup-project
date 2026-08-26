@@ -1,5 +1,5 @@
 -- copy command to use; does not work.
-COPY raw_fifa_world_cup_2026_player_performance
+COPY world_cup_2026_matches
 FROM '...'
 WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
 
