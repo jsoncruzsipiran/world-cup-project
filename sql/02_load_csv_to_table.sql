@@ -1,7 +1,15 @@
--- copy command to use; does not work.
-COPY world_cup_2026_matches
-FROM '...'
-WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+/* LOAD venues.csv INTO venues */
+-- Terminal: \copy venues FROM '...' WITH(FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+-- Response: COPY 16
 
--- must load data via terminal
--- in terminal use command: psql -h host -U user_name -d database_name
+/* LOAD tournament_stages.csv INTO tournament_stages */
+-- Terminal: \copy tournament_stages FROM '...' WITH(FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+-- Response: COPY 7
+
+/* LOAD teams.csv INTO teams */
+-- Terminal: \copy teams FROM '...' WITH(FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+-- Response: COPY 48
+
+/* LOAD squads_and_players.csv INTO squads_and_players */
+-- Terminal: \copy squads_and_players FROM '...' WITH(FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
+-- Response: COPY 1248
