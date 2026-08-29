@@ -103,6 +103,9 @@ CREATE TABLE IF NOT EXISTS matches_detailed (
     referee_name TEXT -- full name of the match referee
 );
 
+ALTER TABLE matches_detailed
+    ALTER COLUMN kickoff_time_utc TYPE TIME;
+
 /* MATCHES */
 CREATE TABLE IF NOT EXISTS matches (
     match_id INT PRIMARY KEY, -- unique identifier for the match
@@ -124,6 +127,16 @@ ALTER TABLE matches
     ADD COLUMN away_penalty_score INT,
     ADD COLUMN result_type TEXT,
     ADD COLUMN player_of_the_match_id INT REFERENCES player_stats(player_id);
+
+ALTER TABLE matches
+    ALTER COLUMN
+        kickoff_time_utc TYPE TIME;
+
+ALTER TABLE matches
+    ALTER COLUMN home_xg TYPE NUMERIC;
+
+ALTER TABLE matches
+    ALTER COLUMN away_xg TYPE NUMERIC;
 
 /* MATCH TEAM STATS */ 
 CREATE TABLE match_team_stats (
