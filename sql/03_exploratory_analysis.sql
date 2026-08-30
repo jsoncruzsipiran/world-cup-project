@@ -1,4 +1,4 @@
--- DISPLAY OF TABLES
+/* DISPLAY OF TABLES */
 SELECT * FROM match_events;
 SELECT * FROM match_lineups;
 SELECT * FROM match_team_stats;
@@ -35,23 +35,30 @@ WITH matches_with_high_elevations AS (
 relevant_match_lineups AS (
     SELECT
         match_lineups.match_id,
+        player_stats.player_id,
         player_stats.player_name,
         teams.team_name
     FROM match_lineups
     JOIN player_stats ON match_lineups.player_id = player_stats.player_id
     JOIN teams ON match_lineups.team_id = teams.team_id
-    WHERE match_lineups.minutes_played > 0
 )
 
 -- combine tables to find the players who've played matches in the most elevated stadiums at the 2026 world cup
 SELECT
     relevant_match_lineups.*,
-    matches_with_high_elevations.*
+    matches_with_high_elevations.stadium_name,
+    matches_with_high_elevations.elevation_meters,
+    matches_with_high_elevations.home_team_name,
+    matches_with_high_elevations.away_team_name,
+    matches_with_high_elevations.home_score,
+    matches_with_high_elevations.away_score,
+    matches_with_high_elevations.home_xg,
+    matches_with_high_elevations.away_xg    
 FROM relevant_match_lineups
 JOIN matches_with_high_elevations ON relevant_match_lineups.match_id = matches_with_high_elevations.match_id
 ORDER BY 
     relevant_match_lineups.match_id, 
     team_name;
 
-/* DATA DISPLAYS LIST OF PLAYERS WHO'VE PARTICIPATED IN THESE MATCHES OF INTEREST */
-/* MUST EXPLORE TO FIND INDIVIDUAL PLAYER PERFORMANCE STATISTICS */
+-- DATA DISPLAYS LIST OF PLAYERS WHO'VE PARTICIPATED IN THESE MATCHES OF INTEREST; 9 matches played | 280 player records
+-- MUST EXPLORE TO FIND INDIVIDUAL PLAYER PERFORMANCE STATISTICS
