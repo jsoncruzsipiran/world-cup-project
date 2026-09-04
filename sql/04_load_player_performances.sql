@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS elevated_stadium_player_performances (
     player_id INT REFERENCES squads_and_players(player_id),
     player_name TEXT,
     team_name TEXT,
+    minutes_played INT,
     passes_attempted INT,
     passes_completed INT,
     pass_completion_pct NUMERIC,
@@ -35,5 +36,6 @@ ALTER TABLE elevated_stadium_player_performances
 OWNER to postgres;
 
 /* LOAD elevated_stadium_player_performances.csv to elevated_stadium_player_performances */
+
 -- Terminal: \copy elevated_stadium_player_performances FROM '...' WITH(FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
 -- Response: COPY 284
